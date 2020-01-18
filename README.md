@@ -9,6 +9,12 @@ More detailed instructions for for installing tcod: https://python-tcod.readthed
 pip3 install tcod
 ```
 
+## Run
+
+```
+python engine.py
+```
+
 ### Requirements
 
 * Python 3.5+
