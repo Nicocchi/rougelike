@@ -3,6 +3,7 @@ import tcod as libtcod
 from enum import Enum
 
 from game_states import GameStates
+
 from menus import inventory_menu
 
 class RenderOrder(Enum):
