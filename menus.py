@@ -38,7 +38,8 @@ def inventory_menu(con, header, inventory, inventory_width, screen_width, screen
     menu(con, header, options, inventory_width, screen_width, screen_height)
 
 def main_menu(con, background_image, screen_width, screen_height):
-    libtcod.image_blit(background_image, 0, 0, 0, libtcod.BKGND_SET, 0.2, 0.2, 0.0)
+    # libtcod.image_blit(background_image, 0, 0, 0, libtcod.BKGND_SET, 0.2, 0.2, 0.0)
+    libtcod.image_blit_2x(background_image, 0, 0, 0)
 
     libtcod.console_set_default_foreground(0, libtcod.light_yellow)
     libtcod.console_print_ex(0, int(screen_width / 2), int(screen_height / 2) - 4, libtcod.BKGND_NONE, libtcod.CENTER, 'Twilight of the Pixie Goddess')
