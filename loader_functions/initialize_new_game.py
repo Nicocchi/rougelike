@@ -46,7 +46,7 @@ def get_constants():
     colors = {
         'dark_wall': libtcod.Color(0, 0, 100),
         'dark_ground': libtcod.Color(50, 50, 150),
-        'light_wall': libtcod.Color(130, 110, 50),
+        'light_wall': libtcod.Color(63, 172, 74),
         'light_ground': libtcod.Color(200, 180, 50)
     }
 
