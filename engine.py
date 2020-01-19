@@ -40,7 +40,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
         libtcod.console_flush()
 
-        clear_all(con, entities)
+        clear_all(con, entities, fov_map)
 
         action = handle_keys(key, game_state)
         mouse_action = handle_mouse(mouse)

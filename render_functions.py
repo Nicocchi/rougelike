@@ -105,9 +105,9 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
         character_screen(player, 30, 10, screen_width, screen_height)
 
 # Clears all the entites after drawing to the screen
-def clear_all(con, entities):
+def clear_all(con, entities, fov_map):
     for entity in entities:
-        clear_entity(con, entity)
+        clear_entity(con, entity, fov_map)
 
 # Draws the entity to the screen
 def draw_entity(con, entity, fov_map, game_map):
@@ -116,6 +116,7 @@ def draw_entity(con, entity, fov_map, game_map):
         libtcod.console_put_char(con, entity.x, entity.y, entity.char, libtcod.BKGND_NONE)
 
 # Clears the entity from the screen so that when the entity moves it doesn't leave a trail behind
-def clear_entity(con, entity):
+def clear_entity(con, entity, fov_map):
     # Erase the character that represents this object
-    libtcod.console_put_char(con, entity.x, entity.y, ' ', libtcod.BKGND_NONE)
+    if libtcod.map_is_in_fov(fov_map, entity.x, entity.y):
+        libtcod.console_put_char(con, entity.x, entity.y, '.', libtcod.BKGND_NONE)
