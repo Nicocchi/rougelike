@@ -13,7 +13,7 @@ def kill_player(player):
 def kill_monster(monster):
     death_message = Message('{0} is dead!'.format(monster.name.capitalize()), libtcod.orange)
 
-    monster.char = '¤'
+    monster.char = '%'
     monster.color = libtcod.dark_red
     monster.blocks = False
     monster.figher = None

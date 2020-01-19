@@ -1,15 +1,16 @@
 import tcod as libtcod
 
-from enum import Enum
+from enum import Enum, auto
 
 from game_states import GameStates
 
 from menus import inventory_menu
 
 class RenderOrder(Enum):
-    CORPSE = 1
-    ITEM = 2
-    ACTOR = 3
+    STAIRS = auto()
+    CORPSE = auto()
+    ITEM = auto()
+    ACTOR = auto()
 
 def get_names_under_mouse(mouse, entities, fov_map):
     (x, y) = (mouse.cx, mouse.cy)
@@ -64,7 +65,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
     # Draw all entities in the list
     for entity in entities_in_render_order:
-        draw_entity(con, entity, fov_map)
+        draw_entity(con, entity, fov_map, game_map)
     
     libtcod.console_blit(con, 0, 0, screen_width, screen_height, 0, 0, 0)
 
@@ -80,6 +81,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
     # Draw health bar
     render_bar(panel, 1, 1, bar_width, 'HP', player.fighter.hp, player.fighter.max_hp, libtcod.light_red, libtcod.darker_red)
+    libtcod.console_print_ex(panel, 1, 3, libtcod.BKGND_NONE, libtcod.LEFT, 'Dungeon Level: {0}'.format(game_map.dungeon_level))
 
     # Draw names
     libtcod.console_set_default_foreground(panel, libtcod.light_gray)
@@ -102,8 +104,8 @@ def clear_all(con, entities):
         clear_entity(con, entity)
 
 # Draws the entity to the screen
-def draw_entity(con, entity, fov_map):
-    if libtcod.map_is_in_fov(fov_map, entity.x, entity.y):
+def draw_entity(con, entity, fov_map, game_map):
+    if libtcod.map_is_in_fov(fov_map, entity.x, entity.y) or (entity.stairs and game_map.tiles[entity.x][entity.y].explored):
         libtcod.console_set_default_foreground(con, entity.color)
         libtcod.console_put_char(con, entity.x, entity.y, entity.char, libtcod.BKGND_NONE)
 
