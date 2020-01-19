@@ -8,47 +8,12 @@ from fov_functions import initialize_fov, recompute_fov
 from game_messages import Message, MessageLog
 from game_states import GameStates
 from input_handlers import handle_keys, handle_mouse
+from loader_functions.initialize_new_game import get_constants
 from map_objects.game_map import GameMap
 from render_functions import clear_all, render_all, RenderOrder
 
 def main():
-    # Define screen size
-    screen_width = 80
-    screen_height = 50
-
-    # Health Bar
-    bar_width = 20
-    panel_height = 7
-    panel_y = screen_height - panel_height
-
-    # Message bar
-    message_x = bar_width + 2
-    message_width = screen_width - bar_width - 2
-    message_height = panel_height - 1
-
-    # Size of the map
-    map_width = 80
-    map_height = 43
-
-    # Some variables for the room sin the map
-    room_max_size = 10
-    room_min_size = 6
-    max_rooms = 30
-
-    # Field of view
-    fov_algorithm = 0 # Default algorithm libtcod uses
-    fov_light_walls = True # Whether or not to light up the walls
-    fov_radius = 10 # How far player can see
-
-    max_monsters_per_room = 3
-    max_items_per_room = 2
-
-    colors = {
-        'dark_wall': libtcod.Color(0, 0, 100),
-        'dark_ground': libtcod.Color(50, 50, 150),
-        'light_wall': libtcod.Color(130, 110, 50),
-        'light_ground': libtcod.Color(200, 180, 50)
-    }
+    constants = get_constants
 
 
     fighter_component = Fighter(hp=30, defense=2, power=5)
@@ -60,21 +25,22 @@ def main():
     libtcod.console_set_custom_font('arial10x10.png', libtcod.FONT_TYPE_GRAYSCALE | libtcod.FONT_LAYOUT_TCOD)
 
     # Create the screen
-    libtcod.console_init_root(screen_width, screen_height, 'Rougelike', False)
+    libtcod.console_init_root(constants['screen_width'], constants['screen_height'], constants['Rougelike'], False)
 
     # Define new console
-    con = libtcod.console_new(screen_width, screen_height)
-    panel = libtcod.console_new(screen_width, panel_height)
+    con = libtcod.console_new(constants['screen_width'], constants['screen_height'])
+    panel = libtcod.console_new(constants['screen_width'], constants['screen_height'])
 
     # Define the game map
-    game_map = GameMap(map_width, map_height)
-    game_map.make_map(max_rooms, room_min_size, room_max_size, map_width, map_height, player, entities, max_monsters_per_room, max_items_per_room)
+    game_map = GameMap(constants['map_width'], constants['map_height'])
+    game_map.make_map(constants['max_rooms'], constants['room_min_size'], constants['room_max_size'], constants['map_width'], constants['map_height'], 
+                        player, entities, constants['max_monsters_per_room'], constants['max_items_per_room'])
 
     fov_recompute = True
 
     fov_map = initialize_fov(game_map)
 
-    message_log = MessageLog(message_x, message_width, message_height)
+    message_log = MessageLog(constants['message_x'], constants['message_width'], constants['message_height'])
 
     # Hold the mouse and keyboard input
     key = libtcod.Key()
@@ -92,10 +58,11 @@ def main():
 
         # Recompute field of view
         if fov_recompute:
-            recompute_fov(fov_map, player.x, player.y, fov_radius, fov_light_walls, fov_algorithm)
+            recompute_fov(fov_map, player.x, player.y, constants['fov_radius'], constants['fov_light_walls'], constants['fov_algorithm'])
 
         # Print the player and set the background to none -> (console, x, y, what to draw, background)
-        render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, screen_width, screen_height, bar_width, panel_height, panel_y, mouse, colors, game_state)
+        render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, message_log, constants['screen_width'], 
+                    constants['screen_height'], constants['bar_width'], constants['panel_height'], constants['panel_y'], mouse, constants['colors'], game_state)
 
         fov_recompute = False
 
