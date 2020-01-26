@@ -12,9 +12,9 @@ options = {
 }
 
 setup(
-    name = "Rougelike",
+    name = "Twilight of The Pixie Goddes",
     options = options,
     version = "0.1",
-    description = 'Rougelike Demo',
+    description = 'Twilight of The Pixie Goddes Pre-Alpha Demo v0.1',
     executables = executables
 )
