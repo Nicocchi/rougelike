@@ -123,6 +123,7 @@ class GameMap:
 
         monster_chances = {
             'orc': 80,
+            'rat': 60,
             'troll': from_dungeon_level([[15, 3], [30, 5], [60, 7]], self.dungeon_level)}
         item_chances = {
             'healing_potion': 35,
@@ -140,17 +141,32 @@ class GameMap:
             if not any([entity for entity in entities if entity.x == x and entity.y == y]):
                 monster_choice = random_choice_from_dict(monster_chances)
 
+                orc_hp = from_dungeon_level([[20, 1], [25, 6], [60, 15]], self.dungeon_level)
+                orc_strength = from_dungeon_level([[4, 1], [6, 6], [8, 15]], self.dungeon_level)
+
+                troll_hp = from_dungeon_level([[30, 1], [36, 6], [40, 15]], self.dungeon_level)
+                troll_strength = from_dungeon_level([[8, 1], [10, 6], [12, 15]], self.dungeon_level)
+
                 if monster_choice == 'orc':
-                    fighter_component = Fighter(hp=20, defense=0, strength=4, dexterity=0, intelligence=0, charisma=0,
+                    fighter_component = Fighter(hp=orc_hp, defense=0, strength=orc_strength, dexterity=0,
+                                                intelligence=0, charisma=0,
                                                 xp=35)
                     ai_component = BasicMonster()
                     monster = Entity(x, y, 'O', libtcodpy.desaturated_green, 'Orc', blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
-                else:
-                    fighter_component = Fighter(hp=30, defense=2, strength=8, dexterity=0, intelligence=0, charisma=0,
+                elif monster_choice == 'troll':
+                    fighter_component = Fighter(hp=troll_hp, defense=2, strength=troll_strength, dexterity=0,
+                                                intelligence=0, charisma=0,
                                                 xp=100)
                     ai_component = BasicMonster()
                     monster = Entity(x, y, 'T', libtcodpy.darker_green, 'Troll', blocks=True,
+                                     render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
+                else:
+                    fighter_component = Fighter(hp=4, defense=0, strength=2, dexterity=0,
+                                                intelligence=0, charisma=0,
+                                                xp=10)
+                    ai_component = BasicMonster()
+                    monster = Entity(x, y, 'R', libtcodpy.darker_green, 'Rat', blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
                 entities.append(monster)
@@ -193,7 +209,7 @@ class GameMap:
     def is_blocked(self, x, y):
         if self.tiles[x][y].blocked:
             return True
-        
+
         return False
 
     # Create next floor and heal player

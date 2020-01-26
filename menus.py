@@ -118,32 +118,44 @@ def character_screen(player, character_screen_width, character_screen_height, sc
     libtcodpy.console_set_color_control(
         libtcodpy.COLCTRL_1, libtcodpy.Color(35, 140, 196), libtcodpy.black)
 
+    libtcodpy.console_set_color_control(
+        libtcodpy.COLCTRL_4, libtcodpy.Color(196, 35, 78), libtcodpy.black)
+
     libtcodpy.console_print_rect_ex(window, 0, 1, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
                                     libtcodpy.LEFT,
                                     '%cCharacter Information%c' % (libtcodpy.COLCTRL_1, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_set_char_foreground(
         window, character_screen_width, character_screen_height, libtcodpy.Color(35, 140, 196))
     libtcodpy.console_print_rect_ex(window, 0, 2, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Level: {0}'.format(player.level.current_level))
+                                    libtcodpy.LEFT, 'Level: %c{0}%c'.format(player.level.current_level) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 3, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Experience: {0}'.format(player.level.current_xp))
+                                    libtcodpy.LEFT, 'Experience: %c{0}%c'.format(player.level.current_xp) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 4, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
                                     libtcodpy.LEFT,
-                                    'Experience to Level: {0}'.format(player.level.experience_to_next_level))
+                                    'Experience to Level: %c{0}%c'.format(player.level.experience_to_next_level) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 6, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Constitution: {0}'.format(player.fighter.max_hp))
+                                    libtcodpy.LEFT, 'Constitution: %c{0}%c'.format(player.fighter.max_hp) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 7, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Strength: {0}'.format(player.fighter.strength))
+                                    libtcodpy.LEFT, 'Strength: %c{0}%c'.format(player.fighter.strength) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 8, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Endurance: {0}'.format(player.fighter.defense))
+                                    libtcodpy.LEFT, 'Endurance: %c{0}%c'.format(player.fighter.defense) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 9, character_screen_width, character_screen_height, libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Dexterity: {0}'.format(player.fighter.dexterity))
+                                    libtcodpy.LEFT, 'Dexterity: %c{0}%c'.format(player.fighter.dexterity) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 10, character_screen_width, character_screen_height,
                                     libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Intelligence: {0}'.format(player.fighter.intelligence))
+                                    libtcodpy.LEFT, 'Intelligence: %c{0}%c'.format(player.fighter.intelligence) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
     libtcodpy.console_print_rect_ex(window, 0, 11, character_screen_width, character_screen_height,
                                     libtcodpy.BKGND_NONE,
-                                    libtcodpy.LEFT, 'Charisma: {0}'.format(player.fighter.charisma))
+                                    libtcodpy.LEFT, 'Charisma: %c{0}%c'.format(player.fighter.charisma) % (
+                                    libtcodpy.COLCTRL_4, libtcodpy.COLCTRL_STOP))
 
     x = screen_width // 2 - character_screen_width // 2
     y = screen_height // 2 - character_screen_height // 2
