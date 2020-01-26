@@ -1,6 +1,7 @@
-import tcod as libtcod
+import tcod as libtcodpy
 
 from game_messages import Message
+
 
 class Fighter:
     def __init__(self, hp, defense, strength, dexterity, intelligence, charisma, xp=0):
@@ -19,25 +20,25 @@ class Fighter:
             bonus = self.owner.equipment.max_hp_bonus
         else:
             bonus = 0
-        
+
         return self.base_max_hp + bonus
-    
+
     @property
     def strength(self):
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.strength_bonus
         else:
             bonus = 0
-        
+
         return self.base_strength + bonus
-    
+
     @property
     def defense(self):
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.defense_bonus
         else:
             bonus = 0
-        
+
         return self.base_defense + bonus
 
     @property
@@ -46,25 +47,25 @@ class Fighter:
             bonus = self.owner.equipment.dexterity_bonus
         else:
             bonus = 0
-        
+
         return self.base_dexterity + bonus
-    
+
     @property
     def intelligence(self):
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.intelligence_bonus
         else:
             bonus = 0
-        
+
         return self.base_intelligence + bonus
-    
+
     @property
     def charisma(self):
         if self.owner and self.owner.equipment:
             bonus = self.owner.equipment.charisma_bonus
         else:
             bonus = 0
-        
+
         return self.base_charisma + bonus
 
     def take_damage(self, amount):
@@ -75,9 +76,9 @@ class Fighter:
         if (self.hp <= 0):
             self.hp = 0
             results.append({'dead': self.owner, 'xp': self.xp})
-        
+
         return results
-    
+
     def heal(self, amount):
         self.hp += amount
 
@@ -92,9 +93,13 @@ class Fighter:
 
         if damage > 0:
             target.fighter.take_damage(damage)
-            results.append({'message': Message('{0} attacks {1} for {2} hit points.'.format(self.owner.name.capitalize(), target.name, str(damage)), libtcod.white)})
+            results.append({'message': Message(
+                '{0} attacks {1} for {2} hit points.'.format(self.owner.name.capitalize(), target.name, str(damage)),
+                libtcodpy.white)})
             results.extend(target.fighter.take_damage(damage))
         else:
-            results.append({'message': Message('{0} attacks {1} but does no damage.'.format(self.owner.name.capitalize(), target.name), libtcod.white)})
-        
+            results.append({'message': Message(
+                '{0} attacks {1} but does no damage.'.format(self.owner.name.capitalize(), target.name),
+                libtcodpy.white)})
+
         return results

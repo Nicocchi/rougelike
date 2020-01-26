@@ -130,3 +130,6 @@ dmypy.json
 
 # Save files
 savegame.dat
+
+# IntelliJ files
+.idea/

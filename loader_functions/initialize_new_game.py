@@ -1,4 +1,4 @@
-import tcod as libtcod
+import tcod as libtcodpy
 
 from components.equipment import Equipment
 from components.equippable import Equippable
@@ -12,6 +12,7 @@ from game_messages import MessageLog
 from game_states import GameStates
 from map_objects.game_map import GameMap
 from render_functions import RenderOrder
+
 
 def get_constants():
     window_title = 'Twilight of the Pixie Goddess'
@@ -48,10 +49,10 @@ def get_constants():
     max_items_per_room = 2
 
     colors = {
-        'dark_wall': libtcod.Color(0, 0, 100),
-        'dark_ground': libtcod.Color(50, 50, 150),
-        'light_wall': libtcod.Color(63, 172, 74),
-        'light_ground': libtcod.Color(200, 180, 50)
+        'dark_wall': libtcodpy.Color(0, 0, 100),
+        'dark_ground': libtcodpy.Color(50, 50, 150),
+        'light_wall': libtcodpy.Color(63, 172, 74),
+        'light_ground': libtcodpy.Color(200, 180, 50)
     }
 
     constants = {
@@ -79,18 +80,20 @@ def get_constants():
 
     return constants
 
+
 def get_game_variables(constants):
     # Entities
     fighter_component = Fighter(hp=1000, defense=100, strength=200, dexterity=1, intelligence=2, charisma=3)
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()
-    player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR,
-                    fighter=fighter_component, inventory=inventory_component, level=level_component, equipment=equipment_component)
+    player = Entity(0, 0, '@', libtcodpy.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR,
+                    fighter=fighter_component, inventory=inventory_component, level=level_component,
+                    equipment=equipment_component)
     entities = [player]
 
     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, strength_bonus=2)
-    dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', equippable=equippable_component)
+    dagger = Entity(0, 0, '-', libtcodpy.sky, 'Dagger', equippable=equippable_component)
     player.inventory.add_item(dagger)
     player.equipment.toggle_equip(dagger)
 

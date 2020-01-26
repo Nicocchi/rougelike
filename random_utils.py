@@ -1,5 +1,6 @@
 from random import randint
 
+
 # Accept a range of values and tell when a certain thing appears in the dungeon
 def from_dungeon_level(table, dungeon_level):
     for (value, level) in reversed(table):
@@ -7,6 +8,7 @@ def from_dungeon_level(table, dungeon_level):
             return value
 
     return 0
+
 
 def random_choice_index(chances):
     random_chance = randint(1, sum(chances))
@@ -19,6 +21,7 @@ def random_choice_index(chances):
         if random_chance <= running_sum:
             return choice
         choice += 1
+
 
 def random_choice_from_dict(choice_dict):
     choices = list(choice_dict.keys())

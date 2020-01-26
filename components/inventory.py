@@ -1,28 +1,29 @@
-import tcod as libtcod
+import tcod as libtcodpy
 
 from game_messages import Message
+
 
 class Inventory:
     def __init__(self, capacity):
         self.capacity = capacity
         self.items = []
-    
+
     def add_item(self, item):
         results = []
 
         if len(self.items) >= self.capacity:
             results.append({
                 'item_added': None,
-                'message': Message('You cannot carry any more, your inventory is full', libtcod.yellow)
+                'message': Message('You cannot carry any more, your inventory is full', libtcodpy.yellow)
             })
         else:
             results.append({
                 'item_added': item,
-                'message': Message('You pick up the {0}!'.format(item.name), libtcod.Color(35, 140, 196))
+                'message': Message('You pick up the {0}!'.format(item.name), libtcodpy.Color(35, 140, 196))
             })
 
             self.items.append(item)
-        
+
         return results
 
     def use(self, item_entity, **kwargs):
@@ -36,7 +37,8 @@ class Inventory:
             if equippable_component:
                 results.append({'equip': item_entity})
             else:
-                results.append({'message': Message('The {0} cannnot be used'.format(item_entity.name), libtcod.yellow)})
+                results.append(
+                    {'message': Message('The {0} cannnot be used'.format(item_entity.name), libtcodpy.yellow)})
 
         else:
             if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
@@ -50,7 +52,7 @@ class Inventory:
                         self.remove_item(item_entity)
                 
                 results.extend(item_use_results)
-        
+
         return results
 
     def remove_item(self, item):
@@ -64,8 +66,9 @@ class Inventory:
 
         item.x = self.owner.x
         item.y = self.owner.y
-        
+
         self.remove_item(item)
-        results.append({'item_dropped': item, 'message': Message('You dropped the {0}'.format(item.name), libtcod.yellow)})
+        results.append(
+            {'item_dropped': item, 'message': Message('You dropped the {0}'.format(item.name), libtcodpy.yellow)})
 
         return results
