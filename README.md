@@ -1,18 +1,20 @@
 # rougelike
 A Rougelike Demo
 
-### Setup
+### Compile Binary
 
-Install tcod
-More detailed instructions for for installing tcod: https://python-tcod.readthedocs.io/en/latest/installation.html
+Install the required modules and then compile to binary
 ```
-pip3 install tcod
+$ pip install requirements.txt
+$ pyinstaller engine.py
 ```
 
-## Run
+### Play without compiling
 
+Install the required modules and then run the game without compiling to binary
 ```
-python engine.py
+$ pip install requirements.txt
+$ python engine.py
 ```
 
 ### Requirements
