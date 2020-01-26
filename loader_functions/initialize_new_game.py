@@ -32,7 +32,7 @@ def get_constants():
 
     # Map
     map_width = 63
-    map_height = 43
+    map_height = 50
 
     room_max_size = 10
     room_min_size = 6
@@ -81,7 +81,7 @@ def get_constants():
 
 def get_game_variables(constants):
     # Entities
-    fighter_component = Fighter(hp=1000, defense=100, power=200)
+    fighter_component = Fighter(hp=1000, defense=100, strength=200, dexterity=1, intelligence=2, charisma=3)
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()
@@ -89,7 +89,7 @@ def get_game_variables(constants):
                     fighter=fighter_component, inventory=inventory_component, level=level_component, equipment=equipment_component)
     entities = [player]
 
-    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=2)
+    equippable_component = Equippable(EquipmentSlots.MAIN_HAND, strength_bonus=2)
     dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', equippable=equippable_component)
     player.inventory.add_item(dagger)
     player.equipment.toggle_equip(dagger)

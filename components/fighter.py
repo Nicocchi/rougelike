@@ -3,11 +3,14 @@ import tcod as libtcod
 from game_messages import Message
 
 class Fighter:
-    def __init__(self, hp, defense, power, xp=0):
+    def __init__(self, hp, defense, strength, dexterity, intelligence, charisma, xp=0):
         self.base_max_hp = hp
         self.hp = hp
         self.base_defense = defense
-        self.base_power = power
+        self.base_strength = strength
+        self.base_dexterity = dexterity
+        self.base_intelligence = intelligence
+        self.base_charisma = charisma
         self.xp = xp
 
     @property
@@ -20,13 +23,13 @@ class Fighter:
         return self.base_max_hp + bonus
     
     @property
-    def power(self):
+    def strength(self):
         if self.owner and self.owner.equipment:
-            bonus = self.owner.equipment.power_bonus
+            bonus = self.owner.equipment.strength_bonus
         else:
             bonus = 0
         
-        return self.base_power + bonus
+        return self.base_strength + bonus
     
     @property
     def defense(self):
@@ -36,6 +39,33 @@ class Fighter:
             bonus = 0
         
         return self.base_defense + bonus
+
+    @property
+    def dexterity(self):
+        if self.owner and self.owner.equipment:
+            bonus = self.owner.equipment.dexterity_bonus
+        else:
+            bonus = 0
+        
+        return self.base_dexterity + bonus
+    
+    @property
+    def intelligence(self):
+        if self.owner and self.owner.equipment:
+            bonus = self.owner.equipment.intelligence_bonus
+        else:
+            bonus = 0
+        
+        return self.base_intelligence + bonus
+    
+    @property
+    def charisma(self):
+        if self.owner and self.owner.equipment:
+            bonus = self.owner.equipment.charisma_bonus
+        else:
+            bonus = 0
+        
+        return self.base_charisma + bonus
 
     def take_damage(self, amount):
         results = []
@@ -57,7 +87,8 @@ class Fighter:
     def attack(self, target):
         results = []
 
-        damage = self.power - target.fighter.defense
+        # Calculate the damage from the targets defense
+        damage = self.strength - target.fighter.defense
 
         if damage > 0:
             target.fighter.take_damage(damage)
