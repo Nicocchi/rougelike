@@ -5,7 +5,7 @@ A Rougelike Demo
 
 Install the required modules and then compile to binary
 ```
-$ pip install requirements.txt
+$ pip3 -r install requirements.txt
 $ pyinstaller engine.py
 ```
 
