@@ -28,7 +28,33 @@ def menu(con, header, options, width, screen_width, screen_height):
     y = int(screen_height / 2 - height / 2)
     libtcod.console_blit(window, 0, 0, width, height, 0, x, y, 1.0, 0.7)
 
-def inventory_menu(con, header, player, inventory_width, screen_width, screen_height):
+def side_menu(con, header, options, width, screen_width, screen_height, color=libtcod.white):
+	header_height = libtcod.console_get_height_rect(con, 0, 0, width, screen_height, header)
+	
+	height = len(options) + header_height
+	window = libtcod.console_new(width, height)
+
+	# Print the header
+	libtcod.console_set_default_foreground(window, libtcod.white)
+	libtcod.console_print_rect_ex(window, 0, 0, width, height, libtcod.BKGND_NONE, libtcod.LEFT, header)
+
+	y = header_height
+	letter_index = ord('a')
+	for option_text in options:
+		text = '(' + chr(letter_index) + ') ' + option_text
+		libtcod.console_print_ex(window, 0, y, libtcod.BKGND_NONE, libtcod.LEFT, text)
+		libtcod.console_set_char_foreground(window, 0, y, color)
+		libtcod.console_set_char_foreground(window, 1, y, color)
+		libtcod.console_set_char_foreground(window, 2, y, color)
+		y += 1
+		letter_index += 1
+
+	# Blit the contents of "window" to the root console
+	x = int(screen_width / 2 - width / 2)
+	y = int(screen_height / 2 - height / 2)
+	libtcod.console_blit(window, 0, 0, width, height, 0, 70, 2, 1.0, 0.7)
+
+def inventory_menu(con, header, player, inventory_width, screen_width, screen_height, color):
     # Show a menu with each item of the inventory as an option
     if len(player.inventory.items) == 0:
         options = ['Inventory is empty.']
@@ -43,7 +69,7 @@ def inventory_menu(con, header, player, inventory_width, screen_width, screen_he
             else:
                 options.append(item.name)
     
-    menu(con, header, options, inventory_width, screen_width, screen_height)
+    side_menu(con, header, options, inventory_width, screen_width, screen_height, color)
 
 def main_menu(con, background_image, screen_width, screen_height):
     # libtcod.image_blit(background_image, 0, 0, 0, libtcod.BKGND_SET, 0.2, 0.2, 0.0)

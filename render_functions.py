@@ -92,17 +92,23 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
     # Draw Inventory
     if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):
         if game_state == GameStates.SHOW_INVENTORY:
-            inventory_title = 'Press the key next to an item to use it, or Esc to cancel.\n'
+            inventory_title = 'Inventory'
+            color = libtcod.Color(107, 107, 107)
         else:
-            inventory_title = 'Press the key next to an item to drop it, or Esc to cancel.\n'
+            inventory_title = 'Inventory'
+            color = libtcod.red
             
-        inventory_menu(con, inventory_title, player, 50, screen_width, screen_height)
+        inventory_menu(con, inventory_title, player, 50, screen_width, screen_height, color)
     
     elif game_state == GameStates.LEVEL_UP:
         level_up_menu(con, 'Level up! Choose a stat to raise:', player, 40, screen_width, screen_height)
     
     elif game_state == GameStates.CHARACTER_SCREEN:
         character_screen(player, 30, 10, screen_width, screen_height)
+
+    # Draw Inventory on Side
+    if game_state not in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):
+        inventory_menu(con, 'Inventory', player, 50, screen_width, screen_height, libtcod.white)
 
 # Clears all the entites after drawing to the screen
 def clear_all(con, entities, fov_map):

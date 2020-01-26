@@ -17,8 +17,8 @@ def get_constants():
     window_title = 'Twilight of the Pixie Goddess'
 
     # Screen
-    screen_width = 80
-    screen_height = 50
+    screen_width = 99
+    screen_height = 70
 
     # Healthbar
     bar_width = 20
@@ -31,12 +31,12 @@ def get_constants():
     message_height = panel_height - 1
 
     # Map
-    map_width = 80
+    map_width = 63
     map_height = 43
 
     room_max_size = 10
     room_min_size = 6
-    max_rooms = 30
+    max_rooms = 60
 
     # Field of View
     fov_algorithm = 0
@@ -81,7 +81,7 @@ def get_constants():
 
 def get_game_variables(constants):
     # Entities
-    fighter_component = Fighter(hp=100, defense=1, power=2)
+    fighter_component = Fighter(hp=1000, defense=100, power=200)
     inventory_component = Inventory(26)
     level_component = Level()
     equipment_component = Equipment()
