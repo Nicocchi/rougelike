@@ -1,4 +1,4 @@
-import libtcodpypy as libtcodpy
+import tcod as libtcodpy
 
 from game_states import GameStates
 

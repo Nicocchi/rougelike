@@ -77,6 +77,10 @@ def inventory_menu(con, header, player, inventory_width, screen_width, screen_he
                 options.append('{0} (on main hand)'.format(item.name))
             elif player.equipment.off_hand == item:
                 options.append('{0} (on off hand)'.format(item.name))
+            elif player.equipment.head == item:
+                options.append('{0} (on head)'.format(item.name))
+            elif player.equipment.body == item:
+                options.append('{0} (on body)'.format(item.name))
             else:
                 options.append(item.name)
 
@@ -85,7 +89,6 @@ def inventory_menu(con, header, player, inventory_width, screen_width, screen_he
 
 
 def main_menu(con, background_image, screen_width, screen_height):
-    # libtcodpy.image_blit(background_image, 0, 0, 0, libtcodpy.BKGND_SET, 0.2, 0.2, 0.0)
     libtcodpy.image_blit_2x(background_image, 0, 0, 0)
 
     libtcodpy.console_set_default_foreground(0, libtcodpy.light_yellow)
@@ -164,6 +167,8 @@ def character_equipment_screen(player, char_screen_width, char_screen_height, sc
     if len(player.inventory.items) == 0:
         right_hand = 'Empty'
         left_hand = 'Empty'
+        head = 'Empty'
+        body = 'Empty'
     else:
 
         for item in player.inventory.items:
@@ -171,6 +176,10 @@ def character_equipment_screen(player, char_screen_width, char_screen_height, sc
                 right_hand = item.name
             elif player.equipment.off_hand == item:
                 left_hand = item.name
+            elif player.equipment.head == item:
+                head = item.name
+            elif player.equipment.body == item:
+                body = item.name
 
     libtcodpy.console_print_rect_ex(window, 0, 1, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
                                     libtcodpy.LEFT,

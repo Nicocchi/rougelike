@@ -2,9 +2,11 @@ from equipment_slots import EquipmentSlots
 
 
 class Equipment:
-    def __init__(self, main_hand=None, off_hand=None):
+    def __init__(self, main_hand=None, off_hand=None, head=None, body=None):
         self.main_hand = main_hand
         self.off_hand = off_hand
+        self.head = head
+        self.body = body
 
     @property
     def max_hp_bonus(self):
@@ -15,6 +17,12 @@ class Equipment:
 
         if self.off_hand and self.off_hand.equippable:
             bonus += self.off_hand.equippable.max_hp_bonus
+
+        if self.body and self.body.equippable:
+            bonus += self.body.equippable.max_hp_bonus
+
+        if self.head and self.head.equippable:
+            bonus += self.head.equippable.max_hp_bonus
 
         return bonus
 
@@ -28,6 +36,12 @@ class Equipment:
         if self.off_hand and self.off_hand.equippable:
             bonus += self.off_hand.equippable.strength_bonus
 
+        if self.body and self.body.equippable:
+            bonus += self.body.equippable.strength_bonus
+
+        if self.head and self.head.equippable:
+            bonus += self.head.equippable.strength_bonus
+
         return bonus
 
     @property
@@ -39,6 +53,12 @@ class Equipment:
 
         if self.off_hand and self.off_hand.equippable:
             bonus += self.off_hand.equippable.defense_bonus
+
+        if self.body and self.body.equippable:
+            bonus += self.body.equippable.defense_bonus
+
+        if self.head and self.head.equippable:
+            bonus += self.head.equippable.defense_bonus
 
         return bonus
 
@@ -52,6 +72,12 @@ class Equipment:
         if self.off_hand and self.off_hand.equippable:
             bonus += self.off_hand.equippable.dexterity_bonus
 
+        if self.body and self.body.equippable:
+            bonus += self.body.equippable.dexterity_bonus
+
+        if self.head and self.head.equippable:
+            bonus += self.head.equippable.dexterity_bonus
+
         return bonus
 
     @property
@@ -64,6 +90,12 @@ class Equipment:
         if self.off_hand and self.off_hand.equippable:
             bonus += self.off_hand.equippable.intelligence_bonus
 
+        if self.body and self.body.equippable:
+            bonus += self.body.equippable.intelligence_bonus
+
+        if self.head and self.head.equippable:
+            bonus += self.head.equippable.intelligence_bonus
+
         return bonus
 
     @property
@@ -75,6 +107,12 @@ class Equipment:
 
         if self.off_hand and self.off_hand.equippable:
             bonus += self.off_hand.equippable.charisma_bonus
+
+        if self.body and self.body.equippable:
+            bonus += self.body.equippable.charisma_bonus
+
+        if self.head and self.head.equippable:
+            bonus += self.head.equippable.charisma_bonus
 
         return bonus
 
@@ -102,6 +140,26 @@ class Equipment:
                     results.append({'dequipped': self.off_hand})
 
                 self.off_hand = equippable_entity
+                results.append({'equipped': equippable_entity})
+        elif slot == EquipmentSlots.HEAD:
+            if self.head == equippable_entity:
+                self.head = None
+                results.append({'dequipped': equippable_entity})
+            else:
+                if self.head:
+                    results.append({'dequipped': self.head})
+
+                self.head = equippable_entity
+                results.append({'equipped': equippable_entity})
+        elif slot == EquipmentSlots.BODY:
+            if self.body == equippable_entity:
+                self.body = None
+                results.append({'dequipped': equippable_entity})
+            else:
+                if self.body:
+                    results.append({'dequipped': self.body})
+
+                self.body = equippable_entity
                 results.append({'equipped': equippable_entity})
 
         return results
