@@ -1,5 +1,4 @@
 import tcod as libtcodpy
-import random
 from random import randint
 
 from components.ai import BasicMonster
@@ -10,7 +9,6 @@ from components.item import Item
 from components.stairs import Stairs
 
 from entity import Entity
-from fov_functions import initialize_fov
 from game_messages import Message
 from item_functions import cast_confuse, cast_fireball, cast_lightning, heal
 from map_objects.rectangle import Rect
