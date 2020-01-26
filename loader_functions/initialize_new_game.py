@@ -12,6 +12,7 @@ from game_messages import MessageLog
 from game_states import GameStates
 from map_objects.game_map import GameMap
 from render_functions import RenderOrder
+from map_objects.game_map_bsp import make_bsp
 
 
 def get_constants():
@@ -23,7 +24,10 @@ def get_constants():
 
     # Healthbar
     bar_width = 20
-    panel_height = 7
+
+    # Bottom Panel
+    panel_width = 60
+    panel_height = 8
     panel_y = screen_height - panel_height
 
     # Message box
@@ -33,11 +37,11 @@ def get_constants():
 
     # Map
     map_width = 63
-    map_height = 50
+    map_height = 58
 
     room_max_size = 14
     room_min_size = 6
-    max_rooms = 60
+    max_rooms = 120
 
     # Field of View
     fov_algorithm = 0
@@ -60,6 +64,7 @@ def get_constants():
         'screen_width': screen_width,
         'screen_height': screen_height,
         'bar_width': bar_width,
+        'panel_width': panel_width,
         'panel_height': panel_height,
         'panel_y': panel_y,
         'message_x': message_x,

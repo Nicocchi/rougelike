@@ -163,7 +163,7 @@ def character_screen(player, character_screen_width, character_screen_height, sc
                            character_screen_height, 0, 70, 30, 1.0, 0.7)
 
 
-def character_equipment_screen(player, char_screen_width, char_screen_height, screen_width, screen_height):
+def character_equipment_screen(player, char_screen_width, char_screen_height):
     window = libtcodpy.console_new(char_screen_width, char_screen_height)
 
     libtcodpy.console_set_default_foreground(window, libtcodpy.white)
@@ -222,6 +222,74 @@ def character_equipment_screen(player, char_screen_width, char_screen_height, sc
 
     libtcodpy.console_blit(window, 0, 0, char_screen_width,
                            char_screen_height, 0, 70, 50, 1.0, 0.7)
+
+
+def help_screen(char_screen_width, char_screen_height):
+    window = libtcodpy.console_new(char_screen_width, char_screen_height)
+
+    libtcodpy.console_set_default_foreground(window, libtcodpy.white)
+
+    libtcodpy.console_set_color_control(
+        libtcodpy.COLCTRL_2, libtcodpy.Color(196, 35, 175), libtcodpy.black)
+
+    libtcodpy.console_set_color_control(
+        libtcodpy.COLCTRL_5, libtcodpy.Color(31, 237, 31), libtcodpy.black)
+
+    libtcodpy.console_print_rect_ex(window, 0, 1, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT,
+                                    '%cControls%c' % (libtcodpy.COLCTRL_1, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 0, 2, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%ci%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 2, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cInventory%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 3, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cd%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 3, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cDrop Inventory%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 4, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cg%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 4, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cPickup%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 5, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cz%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 5, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cWait%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 6, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%ck j h l%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 6, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cU D L R%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 7, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cu b n z%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 7, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cDiag U D L R%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 8, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cEsc%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 8, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cTitle : Close%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 9, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cEnter%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 9, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cTake Stairs%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 10, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cEnter LAlt%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 10, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cFullscreen%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_print_rect_ex(window, 0, 11, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cmouse%c' % (libtcodpy.COLCTRL_2, libtcodpy.COLCTRL_STOP))
+    libtcodpy.console_print_rect_ex(window, 13, 11, char_screen_width, char_screen_height, libtcodpy.BKGND_NONE,
+                                    libtcodpy.LEFT, '%cTarget%c' % (libtcodpy.COLCTRL_5, libtcodpy.COLCTRL_STOP))
+
+    libtcodpy.console_blit(window, 0, 0, char_screen_width,
+                           char_screen_height, 0, 70, 57, 1.0, 0.7)
 
 
 def message_box(con, header, width, screen_width, screen_height):

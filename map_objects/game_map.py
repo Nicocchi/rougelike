@@ -1,4 +1,5 @@
 import tcod as libtcodpy
+import random
 from random import randint
 
 from components.ai import BasicMonster
@@ -9,12 +10,21 @@ from components.item import Item
 from components.stairs import Stairs
 
 from entity import Entity
+from fov_functions import initialize_fov
 from game_messages import Message
 from item_functions import cast_confuse, cast_fireball, cast_lightning, heal
 from map_objects.rectangle import Rect
 from map_objects.tile import Tile
 from random_utils import from_dungeon_level, random_choice_from_dict
 from render_functions import RenderOrder
+
+DEPTH = 10
+MIN_SIZE = 5
+FULL_ROOMS = False
+MAP_WIDTH = 63
+MAP_HEIGHT = 40
+
+bsp_rooms = []
 
 
 class GameMap:
@@ -147,26 +157,34 @@ class GameMap:
                 troll_hp = from_dungeon_level([[30, 1], [36, 6], [40, 15]], self.dungeon_level)
                 troll_strength = from_dungeon_level([[8, 1], [10, 6], [12, 15]], self.dungeon_level)
 
+                libtcodpy.namegen_parse('data/mingos_demon.cfg')
+                name_bool = randint(0, 1)
+                male_name = libtcodpy.namegen_generate('demon male')
+                female_name = libtcodpy.namegen_generate('demon female')
+
                 if monster_choice == 'orc':
                     fighter_component = Fighter(hp=orc_hp, defense=0, strength=orc_strength, dexterity=0,
                                                 intelligence=0, charisma=0,
                                                 xp=35)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'O', libtcodpy.desaturated_green, 'Orc', blocks=True,
+                    monster = Entity(x, y, 'O', libtcodpy.desaturated_green,
+                                     '{0}'.format(male_name if name_bool == 0 else female_name), blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 elif monster_choice == 'troll':
                     fighter_component = Fighter(hp=troll_hp, defense=2, strength=troll_strength, dexterity=0,
                                                 intelligence=0, charisma=0,
                                                 xp=100)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'T', libtcodpy.darker_green, 'Troll', blocks=True,
+                    monster = Entity(x, y, 'T', libtcodpy.darker_green,
+                                     '{0}'.format(male_name if name_bool == 0 else female_name), blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 else:
                     fighter_component = Fighter(hp=4, defense=0, strength=2, dexterity=0,
                                                 intelligence=0, charisma=0,
                                                 xp=10)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'R', libtcodpy.darker_green, 'Rat', blocks=True,
+                    monster = Entity(x, y, 'R', libtcodpy.darker_green,
+                                     '{0}'.format(male_name if name_bool == 0 else female_name), blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
                 entities.append(monster)

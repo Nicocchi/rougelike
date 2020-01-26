@@ -4,7 +4,7 @@ from enum import Enum, auto
 
 from game_states import GameStates
 
-from menus import character_equipment_screen, character_screen, inventory_menu, level_up_menu
+from menus import help_screen, character_equipment_screen, character_screen, inventory_menu, level_up_menu
 
 
 class RenderOrder(Enum):
@@ -86,9 +86,9 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
         y += 1
 
     # Draw health bar
-    render_bar(panel, 1, 1, bar_width, 'HP', player.fighter.hp, player.fighter.max_hp, libtcodpy.light_red,
+    render_bar(panel, 1, 2, bar_width, 'HP', player.fighter.hp, player.fighter.max_hp, libtcodpy.light_red,
                libtcodpy.darker_red)
-    libtcodpy.console_print_ex(panel, 1, 3, libtcodpy.BKGND_NONE, libtcodpy.LEFT,
+    libtcodpy.console_print_ex(panel, 1, 4, libtcodpy.BKGND_NONE, libtcodpy.LEFT,
                                'Dungeon Level: {0}'.format(game_map.dungeon_level))
 
     # Draw names
@@ -114,7 +114,8 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
     # elif game_state == GameStates.CHARACTER_SCREEN:
     character_screen(player, 30, 15, screen_width, screen_height)
-    character_equipment_screen(player, 30, 10, screen_width, screen_height)
+    character_equipment_screen(player, 30, 10)
+    help_screen(30, 15)
 
     # Draw Inventory on Side
     if game_state not in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):

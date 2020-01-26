@@ -127,7 +127,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 player.fighter.base_max_hp += 20
                 player.fighter.hp += 20
             elif level_up == 'str':
-                player.fighter.strength += 1
+                player.fighter.base_strength += 1
             elif level_up == 'def':
                 player.fighter.base_defense += 1
 
@@ -273,7 +273,7 @@ def main():
     libtcodpy.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False)
 
     con = libtcodpy.console_new(constants['screen_width'], constants['screen_height'])
-    panel = libtcodpy.console_new(constants['screen_width'], constants['panel_height'])
+    panel = libtcodpy.console_new(constants['panel_width'], constants['panel_height'])
 
     player = None
     entities = []
