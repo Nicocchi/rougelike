@@ -11,10 +11,10 @@ def heal(*args, **kwargs):
     results = []
 
     if entity.fighter.hp == entity.fighter.max_hp:
-        results.append({'consumed': False, 'message': Message('You are already at full health', libtcodpy.yellow)})
+        results.append({'consumed': False, 'message': Message('You are already at full health', libtcodpy.Color(186,251,24))})
     else:
         entity.fighter.heal(amount)
-        results.append({'consumed': True, 'message': Message('Your wounds start to feel better!', libtcodpy.green)})
+        results.append({'consumed': True, 'message': Message('Your wounds start to feel better!', libtcodpy.Color(49,170,0))})
 
     return results
 
@@ -45,7 +45,7 @@ def cast_lightning(*args, **kwargs):
         results.extend(target.fighter.take_damage(damage))
     else:
         results.append({'consumed': False, 'target': None,
-                        'message': Message('No enemy is close enough to strike.', libtcodpy.red)})
+                        'message': Message('No enemy is close enough to strike.', libtcodpy.Color(170,16,0))})
 
     return results
 
@@ -62,17 +62,17 @@ def cast_fireball(*args, **kwargs):
 
     if not libtcodpy.map_is_in_fov(fov_map, target_x, target_y):
         results.append({'consumed': False,
-                        'message': Message('You cannot target a tile outside your field of view.', libtcodpy.yellow)})
+                        'message': Message('You cannot target a tile outside your field of view.', libtcodpy.Color(186,251,24))})
         return results
 
     results.append({'consumed': True,
                     'message': Message('The fireball explodes, burning everything within {0} tiles!'.format(radius),
-                                       libtcodpy.orange)})
+                                       libtcodpy.Color(231,93,16))})
 
     for entity in entities:
         if entity.distance(target_x, target_y) <= radius and entity.fighter:
             results.append({'message': Message('The {0} gets burned for {1} hit points.'.format(entity.name, damage),
-                                               libtcodpy.orange)})
+                                               libtcodpy.Color(231,93,16))})
             results.extend(entity.fighter.take_damage(damage))
 
     return results
@@ -88,7 +88,7 @@ def cast_confuse(*args, **kwargs):
 
     if not libtcodpy.map_is_in_fov(fov_map, target_x, target_y):
         results.append({'consumed': False,
-                        'message': Message('You cannot target a tile outside your field of view.', libtcodpy.yellow)})
+                        'message': Message('You cannot target a tile outside your field of view.', libtcodpy.Color(186,251,24))})
         return results
 
     for entity in entities:
@@ -100,11 +100,11 @@ def cast_confuse(*args, **kwargs):
 
             results.append({'consumed': True, 'message': Message(
                 'The eyes of the {0} look vacant, as he starts to stumble around!'.format(entity.name),
-                libtcodpy.light_green)})
+                libtcodpy.Color(89,219,85))})
 
             break
     else:
         results.append(
-            {'consumed': False, 'message': Message('There is no targetable enemy at that location.', libtcodpy.yellow)})
+            {'consumed': False, 'message': Message('There is no targetable enemy at that location.', libtcodpy.Color(186,251,24))})
 
     return results

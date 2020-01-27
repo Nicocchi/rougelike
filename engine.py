@@ -91,7 +91,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
                     break
             else:
-                message_log.add_message(Message('There is nothing here to pick up.', libtcodpy.yellow))
+                message_log.add_message(Message('There is nothing here to pick up.', libtcodpy.Color(186,251,24)))
 
         if show_inventory:
             previous_game_state = game_state
@@ -120,7 +120,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
                     break
             else:
-                message_log.add_message(Message('There are no stairs here.', libtcodpy.yellow))
+                message_log.add_message(Message('There are no stairs here.', libtcodpy.Color(186,251,24)))
 
         if level_up:
             if level_up == 'hp':
@@ -230,7 +230,7 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
                 if leveled_up:
                     message_log.add_message(Message(
                         'Your battle skills grow stronger! You reached level {0}'.format(
-                            player.level.current_level) + '!', libtcodpy.yellow
+                            player.level.current_level) + '!', libtcodpy.Color(186,251,24)
                     ))
                     previous_game_state = game_state
                     game_state = GameStates.LEVEL_UP
@@ -267,13 +267,13 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 def main():
     constants = get_constants()
 
-    libtcodpy.console_set_custom_font('Grim-Fortress-sample-tileset.png',
-                                      libtcodpy.FONT_TYPE_GREYSCALE | libtcodpy.FONT_LAYOUT_ASCII_INROW)
+    libtcodpy.console_set_custom_font('data/terminal10x10_gs_tc.png',
+                                      libtcodpy.FONT_TYPE_GREYSCALE | libtcodpy.FONT_LAYOUT_TCOD)
 
     libtcodpy.console_init_root(constants['screen_width'], constants['screen_height'], constants['window_title'], False)
 
     con = libtcodpy.console_new(constants['screen_width'], constants['screen_height'])
-    panel = libtcodpy.console_new(constants['panel_width'], constants['panel_height'])
+    panel = libtcodpy.console_new(constants['screen_width'], constants['panel_height'])
 
     player = None
     entities = []
@@ -284,17 +284,18 @@ def main():
     show_main_menu = True
     show_load_error_message = False
 
-    main_menu_background_image = libtcodpy.image_load('menu_background.png')
+    main_menu_background_image = libtcodpy.image_load('data/menu_background.png')
 
     key = libtcodpy.Key()
     mouse = libtcodpy.Mouse()
+    menu_index = 0
 
     while not libtcodpy.console_is_window_closed():
         libtcodpy.sys_check_for_event(libtcodpy.EVENT_KEY_PRESS | libtcodpy.EVENT_MOUSE, key, mouse)
 
         if show_main_menu:
             main_menu(con, main_menu_background_image, constants['screen_width'],
-                      constants['screen_height'])
+                      constants['screen_height'], game_state, menu_index)
 
             if show_load_error_message:
                 message_box(con, 'No save game to load', 50, constants['screen_width'], constants['screen_height'])
@@ -306,9 +307,36 @@ def main():
             new_game = action.get('new_game')
             load_saved_game = action.get('load_game')
             exit_game = action.get('exit')
+            up = action.get('up')
+            down = action.get('down')
+            enter = action.get('enter')
 
             if show_load_error_message and (new_game or load_saved_game or exit_game):
                 show_load_error_message = False
+            elif up:
+                if menu_index <= 0:
+                    menu_index = 0
+                else:
+                    menu_index -= 1
+            elif down:
+                if menu_index >= 2:
+                    menu_index = 2
+                else:
+                    menu_index += 1
+            elif enter:
+                if menu_index == 0:
+                    player, entities, game_map, message_log, game_state = get_game_variables(constants)
+                    game_state = GameStates.PLAYERS_TURN
+
+                    show_main_menu = False
+                elif menu_index == 1:
+                    try:
+                        player, entities, game_map, message_log, game_state = load_game()
+                        show_main_menu = False
+                    except FileNotFoundError:
+                        show_load_error_message = True
+                elif menu_index == 2:
+                    break
             elif new_game:
                 player, entities, game_map, message_log, game_state = get_game_variables(constants)
                 game_state = GameStates.PLAYERS_TURN

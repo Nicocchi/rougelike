@@ -165,7 +165,7 @@ class GameMap:
                                                 intelligence=0, charisma=0,
                                                 xp=35)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'O', libtcodpy.desaturated_green,
+                    monster = Entity(x, y, 'O', libtcodpy.Color(27,105,0),
                                      '{0}'.format(male_name if name_bool == 0 else female_name), blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 elif monster_choice == 'troll':
@@ -173,7 +173,7 @@ class GameMap:
                                                 intelligence=0, charisma=0,
                                                 xp=100)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'T', libtcodpy.darker_green,
+                    monster = Entity(x, y, 'T', libtcodpy.Color(27,105,0),
                                      '{0}'.format(male_name if name_bool == 0 else female_name), blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
                 else:
@@ -181,7 +181,7 @@ class GameMap:
                                                 intelligence=0, charisma=0,
                                                 xp=10)
                     ai_component = BasicMonster()
-                    monster = Entity(x, y, 'R', libtcodpy.darker_green,
+                    monster = Entity(x, y, 'R', libtcodpy.Color(27,105,0),
                                      '{0}'.format(male_name if name_bool == 0 else female_name), blocks=True,
                                      render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 
@@ -196,28 +196,28 @@ class GameMap:
 
                 if item_choice == 'healing_potion':
                     item_component = Item(use_function=heal, amount=40)
-                    item = Entity(x, y, '!', libtcodpy.violet, 'Healing Potion', render_order=RenderOrder.ITEM,
+                    item = Entity(x, y, '!', libtcodpy.Color(105,69,255), 'Healing Potion', render_order=RenderOrder.ITEM,
                                   item=item_component)
                 elif item_choice == 'fireball_scroll':
                     item_component = Item(use_function=cast_fireball, targeting=True, targeting_message=Message(
                         'Left-click a target tile for the fireball, or right-click to cancel.', libtcodpy.light_cyan),
                                           damage=25, radius=3)
-                    item = Entity(x, y, '#', libtcodpy.yellow, 'Fireball Scroll', render_order=RenderOrder.ITEM,
+                    item = Entity(x, y, '#', libtcodpy.Color(186,251,24), 'Fireball Scroll', render_order=RenderOrder.ITEM,
                                   item=item_component)
                 elif item_choice == 'sword':
                     equippable_component = Equippable(EquipmentSlots.MAIN_HAND, strength_bonus=3)
                     item = Entity(x, y, '/', libtcodpy.sky, 'Sword', equippable=equippable_component)
                 elif item_choice == 'shield':
                     equippable_component = Equippable(EquipmentSlots.OFF_HAND, defense_bonus=1)
-                    item = Entity(x, y, '[', libtcodpy.darker_orange, 'Shield', equippable=equippable_component)
+                    item = Entity(x, y, '[', libtcodpy.Color(138,20,0), 'Shield', equippable=equippable_component)
                 elif item_choice == 'confusion_scroll':
                     item_component = Item(use_function=cast_confuse, targeting=True, targeting_message=Message(
                         'Left-click an enemy to confuse it, or right-click to cancel.', libtcodpy.light_cyan))
-                    item = Entity(x, y, '#', libtcodpy.yellow, 'Confusion Scroll', render_order=RenderOrder.ITEM,
+                    item = Entity(x, y, '#', libtcodpy.Color(186,251,24), 'Confusion Scroll', render_order=RenderOrder.ITEM,
                                   item=item_component)
                 else:
                     item_component = Item(use_function=cast_lightning, damage=40, maximum_range=5)
-                    item = Entity(x, y, '#', libtcodpy.yellow, 'Lightning Scroll', render_order=RenderOrder.ITEM,
+                    item = Entity(x, y, '#', libtcodpy.Color(186,251,24), 'Lightning Scroll', render_order=RenderOrder.ITEM,
                                   item=item_component)
 
                 entities.append(item)

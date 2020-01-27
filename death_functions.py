@@ -7,16 +7,16 @@ from render_functions import RenderOrder
 
 def kill_player(player):
     player.char = '%'
-    player.color = libtcodpy.dark_red
+    player.color = libtcodpy.Color(169,0,32)
 
-    return Message('You died!', libtcodpy.red), GameStates.PLAYER_DEAD
+    return Message('You died!', libtcodpy.Color(169,0,32)), GameStates.PLAYER_DEAD
 
 
 def kill_monster(monster):
-    death_message = Message('{0} is dead!'.format(monster.name.capitalize()), libtcodpy.orange)
+    death_message = Message('{0} is dead!'.format(monster.name.capitalize()), libtcodpy.Color(231,93,16))
 
     monster.char = '%'
-    monster.color = libtcodpy.dark_red
+    monster.color = libtcodpy.Color(169,0,32)
     monster.blocks = False
     monster.fighter = None
     monster.ai = None

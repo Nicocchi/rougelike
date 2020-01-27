@@ -40,6 +40,6 @@ class ConfusedMonster:
         else:
             self.owner.ai = self.previous_ai
             results.append(
-                {'message': Message('The {0} is no longer confused!'.format(self.owner.name), libtcodpy.red)})
+                {'message': Message('The {0} is no longer confused!'.format(self.owner.name), libtcodpy.Color(170,16,0))})
 
         return results

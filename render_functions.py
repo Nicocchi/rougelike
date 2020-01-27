@@ -86,13 +86,13 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
         y += 1
 
     # Draw health bar
-    render_bar(panel, 1, 2, bar_width, 'HP', player.fighter.hp, player.fighter.max_hp, libtcodpy.light_red,
-               libtcodpy.darker_red)
+    render_bar(panel, 1, 2, bar_width, 'HP', player.fighter.hp, player.fighter.max_hp, libtcodpy.Color(245,56,2),
+               libtcodpy.Color(138,20,0))
     libtcodpy.console_print_ex(panel, 1, 4, libtcodpy.BKGND_NONE, libtcodpy.LEFT,
                                'Dungeon Level: {0}'.format(game_map.dungeon_level))
 
     # Draw names
-    libtcodpy.console_set_default_foreground(panel, libtcodpy.light_gray)
+    libtcodpy.console_set_default_foreground(panel, libtcodpy.Color(231,93,16))
     libtcodpy.console_print_ex(panel, 1, 0, libtcodpy.BKGND_NONE, libtcodpy.LEFT,
                                get_names_under_mouse(mouse, entities, fov_map))
 
@@ -102,10 +102,10 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
     if game_state in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):
         if game_state == GameStates.SHOW_INVENTORY:
             inventory_title = 'Inventory'
-            color = libtcodpy.Color(107, 107, 107)
+            color = libtcodpy.Color(66,190,255)
         else:
             inventory_title = 'Inventory'
-            color = libtcodpy.red
+            color = libtcodpy.Color(169,0,32)
 
         inventory_menu(con, inventory_title, player, 50, screen_width, screen_height, color)
 
@@ -114,12 +114,12 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
     # elif game_state == GameStates.CHARACTER_SCREEN:
     character_screen(player, 30, 15, screen_width, screen_height)
-    character_equipment_screen(player, 30, 10)
-    help_screen(30, 15)
+    character_equipment_screen(player, 30, 10, screen_width)
+    help_screen(30, 15, screen_width)
 
     # Draw Inventory on Side
     if game_state not in (GameStates.SHOW_INVENTORY, GameStates.DROP_INVENTORY):
-        inventory_menu(con, 'Inventory', player, 50, screen_width, screen_height, libtcodpy.white)
+        inventory_menu(con, 'Inventory', player, 50, screen_width, screen_height, libtcodpy.Color(121, 121, 121))
 
 
 # Clears all the entites after drawing to the screen

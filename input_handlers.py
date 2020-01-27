@@ -16,6 +16,8 @@ def handle_keys(key, game_state):
         return handle_level_up_menu(key)
     elif game_state == GameStates.CHARACTER_SCREEN:
         return handle_character_screen(key)
+    elif game_state == GameStates.TITLE_SCREEN:
+        return handle_main_menu(key)
 
     return {}
 
@@ -58,7 +60,7 @@ def handle_player_turn_keys(key):
     elif key_char == 'c':
         return {'show_character_screen': True}
 
-    if key.vk == libtcodpy.KEY_ENTER and key.lalt:
+    if key.vk == libtcodpy.KEY_F11:
         # Alt+Enter: toggle full screen
         return {'fullscreen': True}
     elif key.vk == libtcodpy.KEY_ESCAPE:
@@ -110,6 +112,18 @@ def handle_inventory_keys(key):
 
 def handle_main_menu(key):
     key_char = chr(key.c)
+
+    if key.vk == libtcodpy.KEY_UP:
+        return {'up': True}
+    elif key.vk == libtcodpy.KEY_DOWN:
+        return {'down': True}
+    elif key.vk == libtcodpy.KEY_LEFT:
+        return {'left': True}
+    elif key.vk == libtcodpy.KEY_RIGHT:
+        return {'right': True}
+
+    elif key.vk == libtcodpy.KEY_ENTER:
+        return {'enter': True}
 
     if key_char == 'a':
         return {'new_game': True}

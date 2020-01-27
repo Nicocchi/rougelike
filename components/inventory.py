@@ -14,12 +14,12 @@ class Inventory:
         if len(self.items) >= self.capacity:
             results.append({
                 'item_added': None,
-                'message': Message('You cannot carry any more, your inventory is full', libtcodpy.yellow)
+                'message': Message('You cannot carry any more, your inventory is full', libtcodpy.Color(186,251,24))
             })
         else:
             results.append({
                 'item_added': item,
-                'message': Message('You pick up the {0}!'.format(item.name), libtcodpy.Color(35, 140, 196))
+                'message': Message('You pick up the {0}!'.format(item.name), libtcodpy.Color(66,190,255))
             })
 
             self.items.append(item)
@@ -38,7 +38,7 @@ class Inventory:
                 results.append({'equip': item_entity})
             else:
                 results.append(
-                    {'message': Message('The {0} cannnot be used'.format(item_entity.name), libtcodpy.yellow)})
+                    {'message': Message('The {0} cannnot be used'.format(item_entity.name), libtcodpy.Color(186,251,24))})
 
         else:
             if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
@@ -69,6 +69,6 @@ class Inventory:
 
         self.remove_item(item)
         results.append(
-            {'item_dropped': item, 'message': Message('You dropped the {0}'.format(item.name), libtcodpy.yellow)})
+            {'item_dropped': item, 'message': Message('You dropped the {0}'.format(item.name), libtcodpy.Color(186,251,24))})
 
         return results
