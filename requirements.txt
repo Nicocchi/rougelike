@@ -67,7 +67,7 @@ ordered-set==3.1
 Paste==3.2.2
 pathspec==0.5.9
 pid==2.2.3
-Pillow==6.1.0
+Pillow==6.2.0
 ply==3.11
 productmd==1.23
 pwquality==1.4.2
@@ -100,7 +100,7 @@ python-utils==2.3.0
 pytz==2019.2
 pyudev==0.21.0
 pyxdg==0.26
-PyYAML==3.13
+PyYAML==5.1
 requests==2.20.1
 requests-file==1.4.3
 requests-ftp==0.3.1
