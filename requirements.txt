@@ -55,7 +55,7 @@ lazy-object-proxy==1.4.3
 libcomps==0.1.14
 libvirt-python==5.6.0
 lutris==0.5.3
-Mako==1.1.0.dev0
+Mako==1.2.2
 MarkupSafe==1.1.1
 mccabe==0.6.1
 msgpack==0.6.2
